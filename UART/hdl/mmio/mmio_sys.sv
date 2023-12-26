@@ -31,9 +31,13 @@ module mmio_sys
     // LEDs
     output logic [N_LED-1:0]           led,
 
-    // uart
+    // UART
     input logic                        rx,
-    output logic                       tx
+    output logic                       tx,
+    
+    // ADC
+    input logic                        vp_in,
+    input logic                        vn_in
     );
 
    // signal
@@ -113,12 +117,28 @@ module mmio_sys
       .ACK_O(ACK_I_array[`S2_LED]),
       .dout(led)
       );
+      
+   // slot 3: ADC
+   dev_adc adc_slot3
+     (
+      .CLK_I(CLK_I),
+      .RST_I(RST_I),
+      .ADDR_I(ADDR_O_array[`S3_ADC]),
+      .DAT_I(DAT_O_array[`S3_ADC]),
+      .DAT_O(DAT_I_array[`S3_ADC]),
+      .CYC_I(CYC_O_array[`S3_ADC]),
+      .STB_I(STB_O_array[`S3_ADC]),
+      .WE_I(WE_O_array[`S3_ADC]),
+      .ACK_O(ACK_I_array[`S3_ADC]),
+      .vp_in(vp_in),
+      .vn_in(vn_in)
+      );
 
    // assign default value to unused slot signals
    generate
       genvar                 i;
 
-      for (i = 3; i < `NUM_SLOTS; i = i + 1)
+      for (i = 4; i < `NUM_SLOTS; i = i + 1)
         begin: unused_slot_gen
            assign DAT_I_array[i] = 32'h0000_0000;
            assign ACK_I_array[i] = 1'b1;

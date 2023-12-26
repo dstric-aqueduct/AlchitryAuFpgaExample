@@ -27,6 +27,11 @@ set_property IOSTANDARD LVCMOS33 [get_ports {rx}]
 set_property PACKAGE_PIN P16 [get_ports {tx}]
 set_property IOSTANDARD LVCMOS33 [get_ports {tx}]
 
+set_property PACKAGE_PIN H8 [get_ports {vp_in}]
+set_property IOSTANDARD LVCMOS33 [get_ports {vp_in}]
+set_property PACKAGE_PIN J7 [get_ports {vn_in}]
+set_property IOSTANDARD LVCMOS33 [get_ports {vn_in}]
+
 # au
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 set_property BITSTREAM.CONFIG.CONFIGRATE 33 [current_design]

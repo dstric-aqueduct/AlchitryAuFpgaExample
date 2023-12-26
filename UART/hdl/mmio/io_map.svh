@@ -29,6 +29,7 @@
    `define	S0_SYS_TIMER	0
    `define	S1_UART1	1
    `define	S2_LED	2
+   `define	S3_ADC	3
 
   endpackage: vanilla_pkg
 

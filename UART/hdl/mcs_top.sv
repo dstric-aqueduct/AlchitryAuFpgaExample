@@ -4,9 +4,9 @@
  *
  * Origin from FPGA Prototyping by SystemVerilog Examples - Pong P. Chu
  *
- * video 제외 기본 4개의 I/O core로 구성된 MMIO
+ * video 제외 기본 4개�?� I/O core로 구성�?� MMIO
  *
- * 1. IP catalog에서 MicroBlaze MCS
+ * 1. IP catalog�?서 MicroBlaze MCS
  *  - name cpu
  *  - Memory 128KB
  *  - Input clock frequency 100 Mhz
@@ -22,26 +22,30 @@ module mcs_top
   import vanilla_pkg::*;
   #(parameter BRG_BASE = 32'hc000_0000)
    (
-    input logic        clk,
-    input logic        reset_n,
-    // LED
-    output logic [7:0] led,
-    // uart
-    input logic        rx,
-    output logic       tx
+    input logic                 clk,
+    input logic                 reset_n,
+    // LED          
+    output logic [7:0]          led,
+    // UART         
+    input logic                 rx,
+    output logic                tx,
+    // ADC
+    input logic                 vp_in,
+    input logic                 vn_in
     );
 
    // declaration
-   logic                reset_sys;
+   logic                        reset_sys;
+   
    // MCS IO bus
-   logic                io_addr_strobe;
-   logic                io_read_strobe;
-   logic                io_write_strobe;
-   logic [3:0]          io_byte_enable;
-   logic [`CPU_ADDR_WIDTH-1:0] io_address;
-   logic [`DATA_WIDTH-1:0]     io_write_data;
-   logic [`DATA_WIDTH-1:0]     io_read_data;
-   logic                       io_ready;
+   logic                        io_addr_strobe;
+   logic                        io_read_strobe;
+   logic                        io_write_strobe;
+   logic [3:0]                  io_byte_enable;
+   logic [`CPU_ADDR_WIDTH-1:0]  io_address;
+   logic [`DATA_WIDTH-1:0]      io_write_data;
+   logic [`DATA_WIDTH-1:0]      io_read_data;
+   logic                        io_ready;
 
    // WISHBONE interface
    logic                        CYC_O;
@@ -85,7 +89,9 @@ module mcs_top
                                     .ACK_O(ACK_I),
                                     .led(led),
                                     .rx(rx),
-                                    .tx(tx)
+                                    .tx(tx),
+                                    .vp_in(vp_in),
+                                    .vn_in(vn_in)
                                     );
 
 endmodule: mcs_top
